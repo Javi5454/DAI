@@ -211,6 +211,43 @@ async function consultarRatingMedioProducto() {
     }
 }
 
+//Función para consultar los usuarios que no tienen dígitos en su contraseña
+async function consultarPasswordNoDigits() {
+    console.log(`CONSULTANDO LOS USUARIOS SIN DÍGITOS EN LA CONTRASEÑA`)
+    console.log(`-----------------------------------------------------`)
+    try {
+        //Conectamos el cliente de MongoDB
+        await client.connect();
+        console.log('Conectado a la base de datos')
+
+        //Nos conectamos a la base de datos
+        const db = client.db(dbName)
+        const collection = db.collection(`usuarios`)
+
+        //Realizamos la consulta
+        const resultado = await collection.find({
+            password: { $not: /\d/ } //Expresión regular
+        }).toArray();
+
+        //Mostramos los resultados
+        resultado.forEach(user => {
+            console.log(`Usuario ${user.username}, Password: ${user.password}`)
+        })
+
+        //Los devolvemos por si fuesen de utilidad en el futuro
+        return resultado
+
+    } catch (err) {
+        //Mensaje de error de la consulta
+        console.error(`Error al consultar productos: `, err)
+        throw err
+    } finally {
+        //Ceramos la conexion con la base de datos
+        await client.close();
+        console.log(`Conexion con la base de datos cerrada`)
+    }
+}
+
 
 /*consultarProductosJoyeria()
   .then(productos => {
@@ -223,5 +260,3 @@ async function consultarRatingMedioProducto() {
   .catch(err => {
     console.error('Error en la ejecución de la consulta:', err.message);
   });*/
-
-consultarRatingMedioProducto()

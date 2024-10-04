@@ -10,7 +10,8 @@
     "consultasP1": "node --env-file=.env P1/Consultas.js"
   },
   "dependencies": {
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.5.4"
