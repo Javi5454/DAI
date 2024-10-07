@@ -4,6 +4,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/data/db
+      - ./mongobackups:/var/backups/mongobackups # Para realizar las copias de seguridad de la base de datos
     ports:
       - 27017:27017
     environment:

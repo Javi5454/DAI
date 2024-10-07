@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "seed": "node --env-file=.env seed.js",
-    "consultasP1": "node --env-file=.env P1/Consultas.js"
+    "consultasP1": "node --env-file=.env P1/Consultas.js",
+    "descargarImagenesBD": "node P1/descargaImagenesBD.js"
   },
   "dependencies": {
     "mongodb": "^6.9.0",
