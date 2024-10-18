@@ -1,5 +1,5 @@
 {
-  "name": "Práctica-DAI-1",
+  "name": "Práctica-DAI-2",
   "version": "1.0",
   "author": "Javier Gómez López",
   "description": "Para  rellenar la BD con datso de prueba",
@@ -12,7 +12,12 @@
     "tienda": "node --watch --env-file=.env tienda.js"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
+    "chokidar": "^3.6.0",
+    "express": "^4.21.1",
     "mongodb": "^6.9.0",
+    "mongoose": "^8.7.2",
+    "nunjucks": "^3.2.4",
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
