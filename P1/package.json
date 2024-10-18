@@ -8,7 +8,8 @@
   "scripts": {
     "seed": "node --env-file=.env seed.js",
     "consultasP1": "node --env-file=.env P1/Consultas.js",
-    "descargarImagenesBD": "node P1/descargaImagenesBD.js"
+    "descargarImagenesBD": "node P1/descargaImagenesBD.js",
+    "tienda": "node --watch --env-file=.env tienda.js"
   },
   "dependencies": {
     "mongodb": "^6.9.0",
