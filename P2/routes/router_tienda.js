@@ -5,7 +5,8 @@ const router = express.Router();
 router.get('/portada', async (req, res) => {
     try {
         const productos = await Productos.find({}) //todos los prodcutos
-        res.render('portada.html', { productos }); //../views/portada.html
+        const categorias = await Productos.distinct('category')
+        res.render('portada.html', { categorias }); //../views/portada.html
     }catch(err){
         res.status(500).send({err})
     }

@@ -20,7 +20,7 @@ app.use(express.static('public')) //Para archivos estáticos
 
 //test para el servidor
 app.get("/hola", (req, res) => {
-    res.send('Hola desde el servior');
+    res.send('Hola desde el servidor');
 })
 
 //Las demás rutas con código en el directorio route
