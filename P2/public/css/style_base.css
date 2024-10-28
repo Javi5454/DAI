@@ -8,93 +8,45 @@ body {
 
 /* Barra de navegación */
 .navbar {
-    background-color: #2C8679; /* Color verde como en la imagen */
+    background-color: #2c8086;
+    /* Color verde como en la imagen */
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo {
+.nav-link:hover{
+    color: white;
+}
+
+.navbar-brand {
     color: white;
     font-size: 24px;
     margin-right: 30px;
 }
 
-.search-bar {
-    display: flex;
-}
-
-.search-bar input[type="text"] {
-    padding: 5px;
-    border: none;
-    border-radius: 3px;
-}
-
-.search-bar button {
-    padding: 5px 10px;
-    margin-left: 5px;
-    background-color: #3DB596; /* Botón verde claro */
-    border: none;
-    color: white;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.search-bar button:hover {
-    background-color: #369E87;
-}
-
-.navbar-right {
-    display: flex;
-    align-items: center;
-}
-
-.nav-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.nav-menu > li {
-    position: relative;
-    margin-left: 20px;
-}
-
-.nav-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-}
-
-.nav-menu a:hover {
-    background-color: #3DB596; /* Mismo color verde claro */
-    border-radius: 3px;
-}
-
-.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #2C8679; /* Mismo color de la barra de navegación */
-    display: none;
-    list-style-type: none;
-    padding: 0;
+.navbar-brand:hover {
+    color: #003400;
 }
 
 .dropdown li a {
     padding: 10px;
     display: block;
     white-space: nowrap;
-    text-transform: capitalize; /* Para que la primera letra aparezca en mayúscula */
+    text-transform: capitalize;
+    /* Para que la primera letra aparezca en mayúscula */
 }
 
 .dropdown li a:hover {
-    background-color: #3DB596; /* Verde claro al pasar el mouse */
+    background-color: #5b6879;
+    color: white;
 }
 
 .nav-menu li:hover .dropdown {
     display: block;
+}
+
+#navbarNav{
+    justify-content: flex-end;
 }

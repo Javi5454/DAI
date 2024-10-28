@@ -3,3 +3,35 @@
 {% block title %}
 Portada
 {% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="css/portada.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-5">
+    <div class="row gx-5">
+        <div class="shadow col-sm-4 mt-4">
+            <img class="img-responsive" src="images/portada/mens-fashion.jpg" alt="Men's Fashion">
+            <h4>Men's Fashion<h4>
+                <hr>
+            <button type="button" class="btn btn-outline-success">View Items</button>
+        </div>
+
+        <div class="shadow col-sm-4 mt-4">
+            <img class="img-responsive" src="images/portada/womens-fashion.jpg" alt="Women's Fashion">
+            <h4>Women's Fashion<h4>
+                <hr>
+            <button type="button" class="btn btn-outline-success">View Items</button>
+        </div>
+
+        <div class="shadow col-sm-4 mt-4">
+            <img class="img-responsive" src="images/portada/beauty-section.jpeg" alt="Beauty Section">
+            <h4>Beauty Section<h4>
+                <hr>
+            <button type="button" class="btn btn-outline-success">View Items</button>
+        </div>
+
+    </div>
+
+    {% endblock %}
