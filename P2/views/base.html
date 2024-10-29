@@ -25,9 +25,16 @@
 
         <!-- Contenedor de los elementos de la barra de navegación -->
         <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Barra de búsqueda -->
+            <form class="d-flex" role="search" action="#" method="GET">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit" id="bootstrap-overrides">Search</button>
+            </form>
+
             <ul class="navbar-nav">
                 <!-- Menú de categorías con dropdown -->
-                <li class="nav-item dropdown me-3">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
@@ -40,14 +47,8 @@
                 </li>
             </ul>
 
-            <!-- Barra de búsqueda -->
-            <form class="d-flex" role="search" action="#" method="GET">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                <button class="btn btn-success" type="submit" id="bootstrap-overrides">Search</button>
-            </form>
-
             <!-- Otros elementos de la barra de navegación (Órdenes y Logout) -->
-            <ul class="navbar-nav ms-3">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Orders</a>
                 </li>

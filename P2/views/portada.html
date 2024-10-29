@@ -14,24 +14,51 @@ Portada
         <div class="shadow col-sm-4 mt-4">
             <img class="img-responsive" src="images/portada/mens-fashion.jpg" alt="Men's Fashion">
             <h4>Men's Fashion<h4>
-                <hr>
-            <button type="button" class="btn btn-outline-success">View Items</button>
+                    <hr>
+                    <button type="button" class="btn btn-outline-success">View Items</button>
         </div>
 
         <div class="shadow col-sm-4 mt-4">
             <img class="img-responsive" src="images/portada/womens-fashion.jpg" alt="Women's Fashion">
             <h4>Women's Fashion<h4>
-                <hr>
-            <button type="button" class="btn btn-outline-success">View Items</button>
+                    <hr>
+                    <button type="button" class="btn btn-outline-success">View Items</button>
         </div>
 
         <div class="shadow col-sm-4 mt-4">
             <img class="img-responsive" src="images/portada/beauty-section.jpeg" alt="Beauty Section">
             <h4>Beauty Section<h4>
-                <hr>
-            <button type="button" class="btn btn-outline-success">View Items</button>
+                    <hr>
+                    <button type="button" class="btn btn-outline-success">View Items</button>
         </div>
 
     </div>
+</div>
 
-    {% endblock %}
+<hr>
+
+<div class="container-fluid px-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Featured articles</h2>
+        </div>
+    </div>
+
+    <!-- Artículos destacados -->
+    <div class="row gx-5 mb-5">
+        {% for article in featured_articles %}
+        <div class="shadow col-sm-4 mt-4">
+            <div class="text-center">
+                <img class="img-fluid  object-fit-scale border rounded featured_articles h-100"
+                    src="{{ article.image }}" alt="{{ article.title }}">
+            </div>
+            <h4>{{ article.title }}</h4>
+
+            <button type="button" class="btn btn-outline-success mb-2">View Items</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

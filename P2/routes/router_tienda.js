@@ -1,12 +1,13 @@
 import express from "express";
 import Productos from "../model/productos.js";
+import { obtenerTopProductos } from "../model/productos.js";
 const router = express.Router();
 
 router.get('/portada', async (req, res) => {
     try {
-        const productos = await Productos.find({}) //todos los prodcutos
-        const categorias = await Productos.distinct('category')
-        res.render('portada.html', { categorias }); //../views/portada.html
+        const categorias = await Productos.distinct('category') //Obtenemos las categorias
+        const featured_articles = await obtenerTopProductos();
+        res.render('portada.html', { categorias, featured_articles }); //../views/portada.html
     }catch(err){
         res.status(500).send({err})
     }

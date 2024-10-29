@@ -1,3 +1,8 @@
 .img-responsive{
     width: 100%;
 }
+
+.featured_articles{
+    width: 50% !important;
+    height: 50vh !important;
+}
