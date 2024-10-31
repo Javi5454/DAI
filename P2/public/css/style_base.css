@@ -50,3 +50,16 @@ body {
 #navbarNav{
     justify-content: flex-end;
 }
+
+.item-foto{
+    width: 50% !important;
+    height: 50vh !important;
+}
+
+.img-responsive{
+    width: 100%;
+}
+
+.foto-general-producto{
+    width: 50% !important;
+}
