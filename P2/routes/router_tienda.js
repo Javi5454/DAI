@@ -13,6 +13,18 @@ router.get('/portada', async (req, res) => {
     }
 })
 
+router.post('/portada', async (req, res) => {
+    try {
+        const categorias = await Productos.distinct('category') //Obtenemos las categorias
+        const featured_articles = await obtenerTopProductos();
+        console.log(req.body);
+        res.render('portada.html', { categorias, featured_articles }); //../views/portada.html
+    }catch(err){
+        res.status(500).send({err})
+    }
+})
+
+
 router.get('/', async (req,res) => {
     try{
         res.render('home.html');

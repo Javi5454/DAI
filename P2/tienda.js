@@ -19,7 +19,6 @@ app.set('view engine', 'html')
 app.use(express.static('public')) //Para archivos estáticos
 
 // Para recibir parámetros por URL Encode
-app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 //test para el servidor
