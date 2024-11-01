@@ -65,12 +65,24 @@ export async function searchBarProductos(query) {
 
 //Funcion para buscar un producto por ID
 export async function searchProductByID(producto_id) {
-    try{
-        const producto = await Productos.find({ "id" : producto_id});
+    try {
+        const producto = await Productos.find({ "id": producto_id });
 
         return producto;
-    } catch (err){
+    } catch (err) {
         console.log("Error al obtener el producto:", err);
+        throw err;
+    }
+}
+
+//Función para obtener producto por categorias
+export async function productsByCategory(category) {
+    try {
+        const productos = await Productos.find({ "category": category });
+
+        return productos;
+    } catch (err){
+        console.log("Error al obtener productos de una categoria:", err);
         throw err;
     }
 }

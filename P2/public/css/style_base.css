@@ -63,3 +63,8 @@ body {
 .foto-general-producto{
     width: 50% !important;
 }
+
+.foto-carrito{
+    width: 50%;
+    height: 20vh !important;
+}

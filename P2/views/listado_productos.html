@@ -9,10 +9,17 @@
 
 {% block content %}
 <div class="container-fluid"></div>
+    {% if category %}
+    <div class="row">
+        <div class="col-sm-12 text-center text-capitalize">
+            <h1>{{ category }}</h1>
+        </div>
+    </div>
+    {% endif %}
     <!-- Resultados busqueda -->
     <div class="row gx-5 mb-5 px-5">
-        {% if search_result.length > 0 %}
-            {% for article in search_result %}
+        {% if productos.length > 0 %}
+            {% for article in productos %}
             <div class="shadow col-sm-4 mt-4">
                 <div class="text-center">
                     <img class="img-fluid object-fit-scale border rounded item-foto h-100" src="{{ article.image }}"
@@ -20,7 +27,7 @@
                 </div>
                 <h4>{{ article.title }}</h4>
 
-                <button type="button" class="btn btn-outline-success mb-2">View Items</button>
+                <a href="/producto/{{ article.id }}" class="btn btn-outline-success mb-2">View Item</a>
             </div>
             {% endfor %}
         {% else %}

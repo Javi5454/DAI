@@ -14,21 +14,21 @@ Portada
             <img class="img-responsive" src="images/portada/mens-fashion.jpg" alt="Men's Fashion">
             <h4>Men's Fashion<h4>
                     <hr>
-                    <button type="button" class="btn btn-outline-success">View Items</button>
+                    <a href="/categorias/men's clothing" class="btn btn-outline-success">View Items</a>
         </div>
 
         <div class="shadow col-sm-4 mt-4">
             <img class="img-responsive" src="images/portada/womens-fashion.jpg" alt="Women's Fashion">
             <h4>Women's Fashion<h4>
                     <hr>
-                    <button type="button" class="btn btn-outline-success">View Items</button>
+                    <a href="/categorias/women's clothing" class="btn btn-outline-success">View Items</a>
         </div>
 
         <div class="shadow col-sm-4 mt-4">
-            <img class="img-responsive" src="images/portada/beauty-section.jpeg" alt="Beauty Section">
-            <h4>Beauty Section<h4>
+            <img class="img-responsive" src="images/portada/jewelery.jpeg" alt="Jewelery">
+            <h4>Jewelery<h4>
                     <hr>
-                    <button type="button" class="btn btn-outline-success">View Items</button>
+                    <a href="/categorias/jewelery" class="btn btn-outline-success">View Items</a>
         </div>
 
     </div>
@@ -53,7 +53,7 @@ Portada
             </div>
             <h4>{{ article.title }}</h4>
 
-            <button type="button" class="btn btn-outline-success mb-2">View Items</button>
+            <a href="/producto/{{ article.id }}" class="btn btn-outline-success mb-2">View Item</a>
         </div>
         {% endfor %}
     </div>

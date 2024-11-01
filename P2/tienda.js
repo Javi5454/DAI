@@ -1,5 +1,6 @@
 import express from "express";
 import nunjucks from "nunjucks";
+import session from "express-session";
 
 import connectDB from "./model/db.js";
 connectDB(); //Nos conectamos a la base de datos
@@ -19,7 +20,14 @@ app.set('view engine', 'html')
 app.use(express.static('public')) //Para archivos estáticos
 
 // Para recibir parámetros por URL Encode
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
+
+// Sesiones para poder manejar el carrito
+app.use(session({
+    secret: 'my-secret', // a secret string used to sign the session ID cookie
+    resave: false,  // don't save session if unmodified
+    saveUninitialized: false // don't create session until something stored
+}))
 
 //test para el servidor
 app.get("/hola", (req, res) => {
