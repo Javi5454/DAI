@@ -1,7 +1,6 @@
 import express from "express";
 import Productos from "../model/productos.js";
 import { obtenerTopProductos, searchBarProductos, searchProductByID, productsByCategory } from "../model/productos.js";
-import { appendFile } from "fs";
 const router = express.Router();
 
 router.get('/portada', async (req, res) => {
