@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ producto.title }}
+{% endblock %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid"></div>
+
+<div class="row gx-5 mb-5 px-5 mt-4">
+    <div class="col-sm-12 text-center">
+        <h1>{{ producto.title }}</h1>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <img class="foto-general-producto mt-3" src="{{ producto.image }}" alt="Beauty Section">
+        </div>
+        <div class="col-sm-6 mt-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Product's description</h3>
+                    <p>{{ producto.description }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 mt-3">
+                        <h3>Price: {{ producto.price }} EUR</h3>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <button type="button" class="btn btn-danger btn-lg btn-block"
+                            onclick="agregarAlCarrito('{{ producto.id }}')"><i class="bi bi-cart-plus"></i> Add to
+                            cart</button>
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <!-- Contenedor de Alerta -->
+                    <div id="mensaje-confirmacion" class="alert alert-success alert-dismissible fade show"
+                        style="display: none;" role="alert">
+                        <div class="text-center">
+                            <div class="row">
+                                <h4 id="mensaje-texto"></h4>
+                                <button type="button" class="btn btn-danger" onclick="cerrarAlerta()">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 artículos similares por categoría-->
+                <div class="row mt-3">
+                    <div class="col-sm-12">
+                        <h4>Artículos similares</h4>
+                    </div>
+                    {% for element in productos_similares %}
+                    <div class="shadow col-sm-4 mt-4">
+                        <div class="text-center">
+                            <img class="img-fluid object-fit-scale border rounded item-foto h-100"
+                                src="{{ element.image }}" alt="{{ element.title }}">
+                        </div>
+                        <h4>{{ element.title }}</h4>
+
+                        <a href="/producto/{{ element.id }}" class="btn btn-outline-success mb-2">View Item</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+    function agregarAlCarrito(productId) {
+        console.log(productId);
+        fetch('/carrito/agregar/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar mensaje de confirmación
+                const mensaje = document.getElementById('mensaje-confirmacion');
+                const mensajeTexto = document.getElementById('mensaje-texto');
+                mensajeTexto.textContent = data.message;
+                mensaje.style.display = 'block';
+
+                //Actualizamos el icono del carrito
+                const btnCarrito = document.getElementById('carritoIcon');
+                btnCarrito.disabled = false; //Siempre que añadamos podremos entrar
+
+                // Ocultar el mensaje después de 3 segundos
+                setTimeout(() => {
+                    mensaje.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => {
+                console.error("Error al añadir al carrito:", error);
+            });
+    }
+
+    function cerrarAlerta() {
+        document.getElementById('mensaje-confirmacion').style.display = 'none';
+    }
+</script>
+{% endblock %}
