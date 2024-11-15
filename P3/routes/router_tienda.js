@@ -268,7 +268,7 @@ router.get('/carrito/delete/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        res.render('home.html');
+        res.redirect('/portada');
     } catch (err) {
         res.status(500).send({ err });
     }

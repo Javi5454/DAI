@@ -1,6 +1,7 @@
 import express from "express";
 import nunjucks from "nunjucks";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 
 import connectDB from "./model/db.js";
 connectDB(); //Nos conectamos a la base de datos
@@ -21,6 +22,9 @@ app.use(express.static('public')) //Para archivos estáticos
 
 // Para recibir parámetros por URL Encode
 app.use(express.urlencoded({ extended: true }));
+
+// Usamos las cookies
+app.use(cookieParser())
 
 // Sesiones para poder manejar el carrito
 app.use(session({
