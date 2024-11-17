@@ -2,13 +2,15 @@ import express from "express";
 import nunjucks from "nunjucks";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
 
 import connectDB from "./model/db.js";
 connectDB(); //Nos conectamos a la base de datos
 
 const app = express(); //Nuestro server
 
-const IN = process.env.IN || 'development'; //Por defecto development
+export const IN = process.env.IN || 'development'; //Por defecto development
+export const JWT_SECRET = process.env.JWT_SECRET || 'mi_secreto_jwt'
 
 nunjucks.configure('views', { //directorio 'views' donde tendremos las plantillas html
     autoescape: true, //Evitar ataques por inyeccionSQL
@@ -25,6 +27,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // Usamos las cookies
 app.use(cookieParser())
+
+//Middleware para la autentificación
+const autentificacion = (req, res, next) => {
+    const token = req.cookies.access_token;
+    if (token) {
+        const data = jwt.verify(token, JWT_SECRET);
+        req.username = data.username; //Introducimos el username en las request
+    }
+    next();
+}
+
+app.use(autentificacion);
 
 // Sesiones para poder manejar el carrito
 app.use(session({

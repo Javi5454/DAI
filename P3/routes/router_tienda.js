@@ -19,7 +19,7 @@ router.get('/portada', async (req, res) => {
             }
         }
 
-        res.render('portada.html', { categorias, featured_articles, carrito_unavailable }); //../views/portada.html
+        res.render('portada.html', { categorias, featured_articles, carrito_unavailable, usuario : req.username }); //../views/portada.html
     } catch (err) {
         console.log(err);
         res.status(500).send({ err })
@@ -43,7 +43,7 @@ router.post('/portada', async (req, res) => {
             }
         }
 
-        res.render('listado_productos.html', { categorias, productos, titulo, carrito_unavailable });
+        res.render('listado_productos.html', { categorias, productos, titulo, carrito_unavailable, usuario : req.username });
     } catch (err) {
         res.status(500).send({ err })
     }
@@ -93,7 +93,7 @@ router.get('/producto/:id', async (req, res) => {
         }
 
         //Renderizamos la vista del producto
-        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable });
+        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable, usuario : req.username });
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -119,7 +119,7 @@ router.get('/categorias/:category', async (req, res) => {
             }
         }
 
-        res.render('listado_productos.html', { categorias, productos, "titulo": category, category, carrito_unavailable }) //Pasamos dos veces category para el formateo en el html
+        res.render('listado_productos.html', { categorias, productos, "titulo": category, category, carrito_unavailable, usuario : req.username }) //Pasamos dos veces category para el formateo en el html
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -190,7 +190,7 @@ router.get('/carrito', async (req, res) => {
                 res.redirect('/portada');
             }
             else {
-                res.render('carrito.html', { categorias, carrito_actual, carrito_unavailable }) //Pasamos dos veces category para el formateo en el html
+                res.render('carrito.html', { categorias, carrito_actual, carrito_unavailable, usuario : req.username }) //Pasamos dos veces category para el formateo en el html
             }
         }
     } catch (err) {

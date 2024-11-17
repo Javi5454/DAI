@@ -59,7 +59,11 @@
                     <a class="nav-link" href="#">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    {% if usuario %}
+                    <a class="nav-link" href="/logout">Salir</a>
+                    {% else %}
+                    <a class="nav-link" href="/login">Identificarse</a>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
                     <form action="/carrito" method="GET"><button id="carritoIcon" class="nav-link btn btn-secondary" type="submit" {% if carrito_unavailable %} disabled {% endif %}><i
