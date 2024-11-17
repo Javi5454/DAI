@@ -1,6 +1,7 @@
 import express from "express";
 import Productos from "../model/productos.js";
 import { obtenerTopProductos, searchBarProductos, searchProductByID, productsByCategory } from "../model/productos.js";
+import mongoose from "mongoose";
 const router = express.Router();
 
 router.get('/portada', async (req, res) => {
@@ -93,7 +94,7 @@ router.get('/producto/:id', async (req, res) => {
         }
 
         //Renderizamos la vista del producto
-        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable, usuario : req.username });
+        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable, usuario : req.username, admin: req.user_is_admin });
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -263,6 +264,28 @@ router.get('/carrito/delete/:id', async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
+    }
+})
+
+//Para poder modificar los productos
+router.post('/producto/editar/:id', async (req,res) => {
+    const new_title = req.body.title;
+    const new_price = req.body.price;
+    const productID = req.params.id;
+
+    try{
+        let productoOriginal = await searchProductByID(productID);
+        productoOriginal = productoOriginal[0]; //Nos devuelve un array
+
+        //Actualizamos el producto
+        productoOriginal.title = new_title;
+        productoOriginal.price = parseFloat(new_price);
+        await productoOriginal.save();
+
+        res.json({ message: 'Cambios guardados correctamente'});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({ message: "Error al guardar los cambios"});
     }
 })
 

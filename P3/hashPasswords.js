@@ -44,12 +44,12 @@ async function hashPasswords() {
         }
 
         console.log("Proceso completado. Todas las contraseñas han sido hasheadas.")
-
+    }
+    catch (err) {
+        console.error('Error al hashear las contraseñas:', err);
+    } finally {
         //Cerramos la conexion a la base de datos
         dbConnection.close();
-    }
-    catch (err){
-        console.error('Error al hashear las contraseñas:', err);
     }
 }
 

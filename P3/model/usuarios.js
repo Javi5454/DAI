@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 const UsuariosSchema = new mongoose.Schema({
+    "_id":{
+        "type": mongoose.ObjectId,
+        "required": true
+    },
     "address": {
         "geolocation": {
             "lat": { "type": "String" },
@@ -46,6 +50,11 @@ const UsuariosSchema = new mongoose.Schema({
     },
     "phone": {
         "type": "String"
+    },
+    "admin" : {
+        "type": "Boolean",
+        "default": false,
+        "required": false
     }
 });
 

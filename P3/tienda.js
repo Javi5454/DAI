@@ -34,6 +34,7 @@ const autentificacion = (req, res, next) => {
     if (token) {
         const data = jwt.verify(token, JWT_SECRET);
         req.username = data.username; //Introducimos el username en las request
+        req.user_is_admin = data.admin; //Permisos de administrador
     }
     next();
 }

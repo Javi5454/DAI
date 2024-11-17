@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
         }
 
         //Si llegamos aquí es que hemos dado bien las credenciales
-        const token = jwt.sign({ username: usuario.username }, //Payload
+        const token = jwt.sign({ username: usuario.username, admin: usuario.admin }, //Payload
             JWT_SECRET, //Secreto
             { expiresIn: '2h' } //Tiene una validez de dos horas
         );
@@ -73,8 +73,6 @@ router.get('/bienvenida', async (req, res) => {
                     carrito_unavailable = true;
                 }
             }
-
-            console.log(req.username)
 
             res.render('bienvenida.html', { categorias, carrito_unavailable, usuario: req.username }); //../views/portada.html
         } catch (err) {

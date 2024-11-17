@@ -13,7 +13,12 @@
 
 <div class="row gx-5 mb-5 px-5 mt-4">
     <div class="col-sm-12 text-center">
+        {% if admin %}
+        <!--Título editable si es admin-->
+        <input id="titulo-producto" class="form-control form-control-lg text-center" value="{{ producto.title }}">
+        {% else %}
         <h1>{{ producto.title }}</h1>
+        {% endif %}
     </div>
     <div class="row mt-4">
         <div class="col-sm-6 text-center">
@@ -27,12 +32,25 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 mt-3">
+                        {% if admin %}
+                        <div class="input-group">
+                            <input id="precio-producto" type="number" class="form-control"
+                                value="{{ producto.price }}" />
+                            <span class="input-group-text">€</span>
+                        </div>
+                        {% else %}
                         <h3>Price: {{ producto.price }} EUR</h3>
+                        {% endif %}
                     </div>
                     <div class="col-sm-6 mt-3">
+                        {% if admin %}
+                        <button type="button" class="btn btn-primary btn-lg btn-lg btn-block"
+                            onclick="guardarCambios('{{ producto.id }}')">Save</button>
+                        {% else %}
                         <button type="button" class="btn btn-danger btn-lg btn-block"
                             onclick="agregarAlCarrito('{{ producto.id }}')"><i class="bi bi-cart-plus"></i> Add to
                             cart</button>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -87,24 +105,47 @@
         })
             .then(response => response.json())
             .then(data => {
-                // Mostrar mensaje de confirmación
-                const mensaje = document.getElementById('mensaje-confirmacion');
-                const mensajeTexto = document.getElementById('mensaje-texto');
-                mensajeTexto.textContent = data.message;
-                mensaje.style.display = 'block';
-
-                //Actualizamos el icono del carrito
-                const btnCarrito = document.getElementById('carritoIcon');
-                btnCarrito.disabled = false; //Siempre que añadamos podremos entrar
-
-                // Ocultar el mensaje después de 3 segundos
-                setTimeout(() => {
-                    mensaje.style.display = 'none';
-                }, 3000);
+                mostrarMensaje(data.message);
             })
             .catch(error => {
                 console.error("Error al añadir al carrito:", error);
             });
+    }
+
+    function guardarCambios(productId) {
+        const titulo = document.getElementById('titulo-producto').value;
+        const precio = document.getElementById('precio-producto').value;
+
+        //Creamos un objeto con los datos a enviar
+        const formData = new URLSearchParams();
+        formData.append('title', titulo);
+        formData.append('price', precio);
+
+        fetch('/producto/editar/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData.toString(),
+        })
+            .then(response => response.json())
+            .then(data => {
+                mostrarMensaje(data.message);
+            })
+            .catch(error => {
+                console.error("Error al guardar los cambios:", error);
+            })
+    }
+
+    function mostrarMensaje(mensaje){
+        const mensajeElemento = document.getElementById('mensaje-confirmacion');
+        const mensajeTexto = document.getElementById('mensaje-texto');
+        mensajeTexto.textContent = mensaje
+        mensajeElemento.style.display = 'block';
+
+        setTimeout(() => {
+            mensajeElemento.style.display = 'none';
+        }, 3000); //3 segundos mostramos el mensaje
     }
 
     function cerrarAlerta() {
