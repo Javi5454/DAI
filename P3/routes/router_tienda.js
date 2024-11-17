@@ -20,7 +20,7 @@ router.get('/portada', async (req, res) => {
             }
         }
 
-        res.render('portada.html', { categorias, featured_articles, carrito_unavailable, usuario : req.username }); //../views/portada.html
+        res.render('portada.html', { categorias, featured_articles, carrito_unavailable, usuario: req.username }); //../views/portada.html
     } catch (err) {
         console.log(err);
         res.status(500).send({ err })
@@ -44,7 +44,7 @@ router.post('/portada', async (req, res) => {
             }
         }
 
-        res.render('listado_productos.html', { categorias, productos, titulo, carrito_unavailable, usuario : req.username });
+        res.render('listado_productos.html', { categorias, productos, titulo, carrito_unavailable, usuario: req.username });
     } catch (err) {
         res.status(500).send({ err })
     }
@@ -94,7 +94,7 @@ router.get('/producto/:id', async (req, res) => {
         }
 
         //Renderizamos la vista del producto
-        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable, usuario : req.username, admin: req.user_is_admin });
+        res.render('producto.html', { categorias, producto, productos_similares, carrito_unavailable, usuario: req.username, admin: req.user_is_admin });
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -120,7 +120,7 @@ router.get('/categorias/:category', async (req, res) => {
             }
         }
 
-        res.render('listado_productos.html', { categorias, productos, "titulo": category, category, carrito_unavailable, usuario : req.username }) //Pasamos dos veces category para el formateo en el html
+        res.render('listado_productos.html', { categorias, productos, "titulo": category, category, carrito_unavailable, usuario: req.username }) //Pasamos dos veces category para el formateo en el html
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -191,7 +191,7 @@ router.get('/carrito', async (req, res) => {
                 res.redirect('/portada');
             }
             else {
-                res.render('carrito.html', { categorias, carrito_actual, carrito_unavailable, usuario : req.username }) //Pasamos dos veces category para el formateo en el html
+                res.render('carrito.html', { categorias, carrito_actual, carrito_unavailable, usuario: req.username }) //Pasamos dos veces category para el formateo en el html
             }
         }
     } catch (err) {
@@ -268,12 +268,12 @@ router.get('/carrito/delete/:id', async (req, res) => {
 })
 
 //Para poder modificar los productos
-router.post('/producto/editar/:id', async (req,res) => {
+router.post('/producto/editar/:id', async (req, res) => {
     const new_title = req.body.title;
     const new_price = req.body.price;
     const productID = req.params.id;
 
-    try{
+    try {
         let productoOriginal = await searchProductByID(productID);
         productoOriginal = productoOriginal[0]; //Nos devuelve un array
 
@@ -282,10 +282,15 @@ router.post('/producto/editar/:id', async (req,res) => {
         productoOriginal.price = parseFloat(new_price);
         await productoOriginal.save();
 
-        res.json({ message: 'Cambios guardados correctamente'});
-    } catch(error){
-        console.log(error);
-        res.status(500).json({ message: "Error al guardar los cambios"});
+        res.json({ message: 'Cambios guardados correctamente' });
+    } catch (error) {
+        if (error.name) {
+            res.status(500).json({ message: "El nombre del producto debe de empezar por mayúscula" });
+        }
+        else{
+            res.status(500).json({ message: "Error al guardar los cambios"});
+        }
+
     }
 })
 

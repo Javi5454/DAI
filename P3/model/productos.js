@@ -11,7 +11,14 @@ const ProductosSchema = new mongoose.Schema({
     },
     "title": {
         "type": "String",
-        "required": true //Queremos que haya sí o sí
+        "required": true, // Queremos que haya sí o sí
+        "validate": {
+            "validator": function (value) {
+                // Verifica si el título comienza con una letra mayúscula
+                return /^[A-ZÁÉÍÓÚÑ]/.test(value);
+            },
+            "message": "El título debe comenzar con una letra mayúscula."
+        }
     },
     "price": {
         "type": "Number",
