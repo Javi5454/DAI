@@ -22,8 +22,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.2",
+    "morgan": "^1.10.0",
     "nunjucks": "^3.2.4",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync": "^4.2.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.5.4"

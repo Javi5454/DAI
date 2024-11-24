@@ -3,8 +3,11 @@ import nunjucks from "nunjucks";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import morgan from "morgan";
 
 import connectDB from "./model/db.js";
+import logger from "./logger.js";
+
 connectDB(); //Nos conectamos a la base de datos
 
 const app = express(); //Nuestro server
@@ -39,7 +42,19 @@ const autentificacion = (req, res, next) => {
     next();
 }
 
+//Middleware para registrar solicituded HTTP con Morgan
+app.use(
+    morgan('combined', {
+        stream: {
+            write: (message) => logger.info(message.trim()), //Enviar logs a Wisntron
+        }
+    })
+)
+
 app.use(autentificacion);
+
+// Para la decodificacion que se usa en el body
+app.use(express.json())
 
 // Sesiones para poder manejar el carrito
 app.use(session({
@@ -53,9 +68,6 @@ app.get("/hola", (req, res) => {
     res.send('Hola desde el servidor');
 })
 
-// Para la decodificacion que se usa en el body
-app.use(express.json())
-
 //Las demás rutas con código en el directorio route
 import TiendaRouter from "./routes/router_tienda.js";
 import UsuariosRouter from "./routes/usuarios.js"
@@ -63,6 +75,13 @@ import APIRouter from "./routes/api.js";
 app.use("/", TiendaRouter); //Rutas disponibles desde la raiz
 app.use("/", UsuariosRouter); //Rutas disponibles desde la raiz
 app.use("/", APIRouter); //Rutas disponibles desde la raiz
+
+//Ejemplo de uso manual de Winston
+app.get('/test-loggin', (req, res) => {
+    logger.info('Test logging endpoint accesed');
+    logger.error('This is a test error log');
+    res.send('Check your logs for details');
+})
 
 const PORT = process.env.PORT || 8000; //Por defecto estaremos en el puerto 8000
 
