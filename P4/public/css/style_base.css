@@ -1,0 +1,70 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: #2c8086;
+    /* Color verde como en la imagen */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    margin-right: 30px;
+}
+
+.navbar-brand:hover {
+    color: #003400;
+}
+
+.dropdown li a {
+    padding: 10px;
+    display: block;
+    white-space: nowrap;
+    text-transform: capitalize;
+    /* Para que la primera letra aparezca en mayúscula */
+}
+
+.dropdown li a:hover {
+    background-color: #5b6879;
+    color: white;
+}
+
+.nav-menu li:hover .dropdown {
+    display: block;
+}
+
+#navbarNav{
+    justify-content: flex-end;
+}
+
+.item-foto{
+    width: 50% !important;
+    height: 50vh !important;
+}
+
+.img-responsive{
+    width: 100%;
+}
+
+.foto-general-producto{
+    width: 50% !important;
+}
+
+.foto-carrito{
+    width: 50%;
+    height: 20vh !important;
+}

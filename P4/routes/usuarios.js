@@ -37,8 +37,6 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
         }
 
-        console.log(usuario)
-
         //Si llegamos aquí es que hemos dado bien las credenciales
         const token = jwt.sign({ username: usuario.username, admin: usuario.admin }, //Payload
             JWT_SECRET, //Secreto

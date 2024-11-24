@@ -1,0 +1,28 @@
+GET http://localhost:8000/api/ratings
+
+###
+
+GET http://localhost:8000/api/ratings/1
+
+###
+#Obtener el JWT desde /login
+# @name login
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "user" : "johnd",
+    "password": "m38rmF$"
+} 
+
+###
+@jwtoken = {{login.response.body}}
+#Prueba el endpoint PUT /api/ratings/:id con el JWT obtenido
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate" : 5.0,
+    "count": 5
+}
