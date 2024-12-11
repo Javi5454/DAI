@@ -107,7 +107,7 @@ router.put('/api/ratings/:id', async (req, res) => {
     }
 })
 
-//PUT /api/ratings/:id
+//PUT /api/vote/:id
 router.put('/api/vote/:id', async (req, res) => {
     const id = req.params.id;
     try {

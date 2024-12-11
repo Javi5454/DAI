@@ -133,3 +133,67 @@ Cookie: access_token={{jwtoken}}
     "rate": 4.5,
     "count": 100
 }
+
+# Probar PUT /api/vote/:id con un caso exitoso
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id con un ID no válido (debería devolver 400)
+PUT http://localhost:8000/api/vote/invalid-id
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id para un producto inexistente (debería devolver 404)
+PUT http://localhost:8000/api/vote/9999
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id con un cuerpo de solicitud incompleto (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5
+}
+
+###
+
+# Probar PUT /api/vote/:id con valores no válidos (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": -1,
+    "count": -10
+}
+
+###
+
+# Probar PUT /api/vote/:id con un `count` no entero (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 10.5
+}
+
