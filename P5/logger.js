@@ -10,7 +10,7 @@ const logger = createLogger({
         })
     ),
     transports: [
-        //new transports.Console(), //Log a la consola
+        new transports.Console(), //Log a la consola
 
         //Archivo combinado con rotacion diaria
         new transports.DailyRotateFile({
