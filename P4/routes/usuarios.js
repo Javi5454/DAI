@@ -8,26 +8,13 @@ import { JWT_SECRET, IN } from "../tienda.js";
 const router = express.Router();
 
 // Para mostrar el formulario de login
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
     //Comprobamos si ya ha iniciado sesión y redirigimos en su caso
     if (req.username) {
         res.redirect('/bienvenida');
     }
     else {
-        const categorias = await Productos.distinct('category') //Obtenemos las categorias
-
-        let carrito_unavailable = false;
-
-        if (!req.session.carrito) {
-            carrito_unavailable = true;
-        }
-        else {
-            if (req.session.carrito.length <= 0) {
-                carrito_unavailable = true;
-            }
-        }
-
-        res.render("login.html", { categorias, carrito_unavailable, usuario: req.username });
+        res.render("login.html", { usuario: req.username });
     }
 })
 
@@ -49,8 +36,6 @@ router.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
         }
-
-        console.log(usuario)
 
         //Si llegamos aquí es que hemos dado bien las credenciales
         const token = jwt.sign({ username: usuario.username, admin: usuario.admin }, //Payload
@@ -108,7 +93,7 @@ router.get('/logout', async (req, res) => {
         const user = req.username;
         res.clearCookie('access_token').render("despedida.html", { user })
     }
-    else {
+    else{
         res.redirect('/portada')
     }
 

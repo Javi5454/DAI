@@ -1,0 +1,5 @@
+2024-11-24T23:30:19.647Z [INFO] : ::ffff:127.0.0.1 - - [24/Nov/2024:23:30:19 +0000] "GET / HTTP/1.1" 302 37 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+2024-11-24T23:30:19.679Z [INFO] : ::ffff:127.0.0.1 - - [24/Nov/2024:23:30:19 +0000] "GET /portada HTTP/1.1" 304 - "-" "Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+2024-11-24T23:30:37.378Z [INFO] : Test logging endpoint accesed
+2024-11-24T23:30:37.378Z [ERROR] : This is a test error log
+2024-11-24T23:30:37.380Z [INFO] : ::ffff:127.0.0.1 - - [24/Nov/2024:23:30:37 +0000] "GET /test-loggin HTTP/1.1" 304 - "-" "Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
