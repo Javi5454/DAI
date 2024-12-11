@@ -8,13 +8,26 @@ import { JWT_SECRET, IN } from "../tienda.js";
 const router = express.Router();
 
 // Para mostrar el formulario de login
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
     //Comprobamos si ya ha iniciado sesión y redirigimos en su caso
     if (req.username) {
         res.redirect('/bienvenida');
     }
     else {
-        res.render("login.html", { usuario: req.username });
+        const categorias = await Productos.distinct('category') //Obtenemos las categorias
+
+        let carrito_unavailable = false;
+
+        if (!req.session.carrito) {
+            carrito_unavailable = true;
+        }
+        else {
+            if (req.session.carrito.length <= 0) {
+                carrito_unavailable = true;
+            }
+        }
+
+        res.render("login.html", { categorias, carrito_unavailable, usuario: req.username });
     }
 })
 
@@ -93,7 +106,7 @@ router.get('/logout', async (req, res) => {
         const user = req.username;
         res.clearCookie('access_token').render("despedida.html", { user })
     }
-    else{
+    else {
         res.redirect('/portada')
     }
 
