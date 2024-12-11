@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ producto.title }}
+{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/rating.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid"></div>
+
+<div class="row gx-5 mb-5 px-5 mt-4">
+    <div class="col-sm-12 text-center">
+        {% if admin %}
+        <!--Título editable si es admin-->
+        <input id="titulo-producto" class="form-control form-control-lg text-center" value="{{ producto.title }}">
+        {% else %}
+        <h1>{{ producto.title }}</h1>
+        {% endif %}
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <img class="foto-general-producto mt-3" src="{{ producto.image }}" alt="Beauty Section">
+        </div>
+        <div class="col-sm-6 mt-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Product's description</h3>
+                    <p>{{ producto.description }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 mt-3">
+                        {% if admin %}
+                        <div class="input-group">
+                            <input id="precio-producto" type="number" class="form-control"
+                                value="{{ producto.price }}" />
+                            <span class="input-group-text">€</span>
+                        </div>
+                        {% else %}
+                        <h3>Price: {{ producto.price }} EUR</h3>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        {% if admin %}
+                        <button type="button" class="btn btn-primary btn-lg btn-lg btn-block"
+                            onclick="guardarCambios('{{ producto.id }}')">Save</button>
+                        {% else %}
+                        <button type="button" class="btn btn-danger btn-lg btn-block"
+                            onclick="agregarAlCarrito('{{ producto.id }}')"><i class="bi bi-cart-plus"></i> Add to
+                            cart</button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <!-- Contenedor de Alerta -->
+                    <div id="mensaje-confirmacion" class="alert alert-success alert-dismissible fade show"
+                        style="display: none;" role="alert">
+                        <div class="text-center">
+                            <div class="row">
+                                <h4 id="mensaje-texto"></h4>
+                                <button type="button" class="btn btn-danger" onclick="cerrarAlerta()">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">        
+                        <div class="col-sm-3">
+                            <span class="stars" data-_id="{{producto.id}}">
+                                Aqui irá el rating de {{producto.id}}
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="rating-message" id="rating-message-{{producto.id}}" style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 artículos similares por categoría-->
+                <div class="row mt-3">
+                    <div class="col-sm-12">
+                        <h4>Artículos similares</h4>
+                    </div>
+                    {% for element in productos_similares %}
+                    <div class="shadow col-sm-4 mt-4">
+                        <div class="text-center">
+                            <img class="img-fluid object-fit-scale border rounded item-foto h-100"
+                                src="{{ element.image }}" alt="{{ element.title }}">
+                        </div>
+                        <h4>{{ element.title }}</h4>
+
+                        <a href="/producto/{{ element.id }}" class="btn btn-outline-success mb-2">View Item</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+    function agregarAlCarrito(productId) {
+        console.log(productId);
+        fetch('/carrito/agregar/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                mostrarMensaje(data.message);
+                document.getElementById('carritoIcon').disabled = false;
+            })
+            .catch(error => {
+                console.error("Error al añadir al carrito:", error);
+            });
+    }
+
+    function guardarCambios(productId) {
+        const titulo = document.getElementById('titulo-producto').value;
+        const precio = document.getElementById('precio-producto').value;
+
+        //Creamos un objeto con los datos a enviar
+        const formData = new URLSearchParams();
+        formData.append('title', titulo);
+        formData.append('price', precio);
+
+        fetch('/producto/editar/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData.toString(),
+        })
+            .then(response => response.json())
+            .then(data => {
+                mostrarMensaje(data.message);
+            })
+            .catch(error => {
+                console.error("Error al guardar los cambios:", error);
+            })
+    }
+
+    function mostrarMensaje(mensaje){
+        const mensajeElemento = document.getElementById('mensaje-confirmacion');
+        const mensajeTexto = document.getElementById('mensaje-texto');
+        mensajeTexto.textContent = mensaje
+        mensajeElemento.style.display = 'block';
+
+        setTimeout(() => {
+            mensajeElemento.style.display = 'none';
+        }, 3000); //3 segundos mostramos el mensaje
+    }
+
+    function cerrarAlerta() {
+        document.getElementById('mensaje-confirmacion').style.display = 'none';
+    }
+</script>
+{% endblock %}
