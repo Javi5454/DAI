@@ -89,3 +89,7 @@ body {
 .rating-message.error {
     color: red;
 }
+
+.fa-star.hovered {
+    color: orange;
+  }
