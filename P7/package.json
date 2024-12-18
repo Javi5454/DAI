@@ -1,0 +1,34 @@
+{
+  "name": "Práctica-DAI-7",
+  "version": "1.0",
+  "author": "Javier Gómez López",
+  "description": "Para  rellenar la BD con datos de prueba",
+  "main": "seed.js",
+  "type": "module",
+  "scripts": {
+    "seed": "node seed.js",
+    "consultasP1": "node P1/Consultas.js",
+    "descargarImagenesBD": "node P1/descargaImagenesBD.js",
+    "tienda": "node --watch tienda.js",
+    "hashPasswords": "node hashPasswords.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
+    "chokidar": "^3.6.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.2",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.4",
+    "prompt-sync": "^4.2.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4"
+  }
+}

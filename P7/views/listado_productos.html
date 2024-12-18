@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ titulo }}
+{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/rating.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid"></div>
+    {% if category %}
+    <div class="row">
+        <div class="col-sm-12 text-center text-capitalize">
+            <h1>{{ category }}</h1>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Resultados busqueda -->
+    <div class="row gx-5 mb-5 px-5">
+        {% if productos.length > 0 %}
+            {% for article in productos %}
+            <div class="shadow col-sm-4 mt-4">
+                <div class="text-center">
+                    <img class="img-fluid object-fit-scale border rounded item-foto h-100" src="{{ article.image }}"
+                        alt="{{ article.title }}">
+                </div>
+                <h4>{{ article.title }}</h4>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a href="/producto/{{ article.id }}" class="btn btn-outline-success mb-2">View Item</a>
+                    </div>
+    
+                    <div class="col-sm-3">
+                        <span class="stars" data-_id="{{article.id}}">
+                            Aqui irá el rating de {{article.id}}
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="rating-message" id="rating-message-{{article.id}}" style="display: none;"></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <h2>No se encontraron coincidencias</h2>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+    function mostrarMensaje(mensaje){
+        const mensajeElemento = document.getElementById('mensaje-confirmacion');
+        const mensajeTexto = document.getElementById('mensaje-texto');
+        mensajeTexto.textContent = mensaje
+        mensajeElemento.style.display = 'block';
+
+        setTimeout(() => {
+            mensajeElemento.style.display = 'none';
+        }, 3000); //3 segundos mostramos el mensaje
+    }
+
+    function cerrarAlerta() {
+        document.getElementById('mensaje-confirmacion').style.display = 'none';
+    }
+</script>
+{% endblock %}

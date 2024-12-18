@@ -1,0 +1,199 @@
+# Obtener todos los ratings
+GET http://localhost:8000/api/ratings
+
+###
+
+#Obtener los 5 primeros ratings
+GET http://localhost:8000/api/ratings?desde=0&hasta=5
+
+###
+
+# Obtener un rating específico (caso exitoso)
+GET http://localhost:8000/api/ratings/1
+
+###
+
+# Obtener un rating específico con un ID no válido (debería devolver 400)
+GET http://localhost:8000/api/ratings/invalid-id
+
+###
+
+# Obtener un rating de un producto inexistente (debería devolver 404)
+GET http://localhost:8000/api/ratings/9999
+
+###
+
+# Obtener el JWT desde el endpoint /login
+# @name login
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "user": "johnd",
+    "password": "m38rmF$"
+}
+
+###
+
+# Guardar el JWT para usarlo en las pruebas
+@jwtoken = {{login.response.body.token}}
+
+# Probar PUT /api/ratings/:id con un caso exitoso
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": 4.8,
+    "count": 202
+}
+
+###
+
+
+# Probar PUT /api/ratings/:id con un usuario no administrador (debería devolver 403)
+# Para esto, crea otro usuario en tu sistema que no tenga permisos de administrador y usa sus credenciales
+# @name non_admin_login
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "user": "mor_2314",
+    "password": "83r5^_"
+}
+
+###
+
+@nonAdminToken = {{non_admin_login.response.body.token}}
+
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{nonAdminToken}}
+
+{
+    "rate": 4.8,
+    "count": 200
+}
+
+###
+
+# Probar PUT /api/ratings/:id con un cuerpo de solicitud incompleto (debería devolver 400)
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": 4.8
+}
+
+###
+
+# Probar PUT /api/ratings/:id con valores no válidos (debería devolver 400)
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": -1,
+    "count": -10
+}
+
+###
+
+# Probar PUT /api/ratings/:id con un `count` no entero (debería devolver 400)
+PUT http://localhost:8000/api/ratings/1
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": 4.5,
+    "count": 10.5
+}
+
+###
+
+# Probar PUT /api/ratings/:id con un ID no válido (debería devolver 400)
+PUT http://localhost:8000/api/ratings/invalid-id
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": 4.5,
+    "count": 100
+}
+
+###
+
+# Probar PUT /api/ratings/:id para un producto inexistente (debería devolver 404)
+PUT http://localhost:8000/api/ratings/9999
+Content-Type: application/json
+Cookie: access_token={{jwtoken}}
+
+{
+    "rate": 4.5,
+    "count": 100
+}
+
+# Probar PUT /api/vote/:id con un caso exitoso
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id con un ID no válido (debería devolver 400)
+PUT http://localhost:8000/api/vote/invalid-id
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id para un producto inexistente (debería devolver 404)
+PUT http://localhost:8000/api/vote/9999
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 1
+}
+
+###
+
+# Probar PUT /api/vote/:id con un cuerpo de solicitud incompleto (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5
+}
+
+###
+
+# Probar PUT /api/vote/:id con valores no válidos (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": -1,
+    "count": -10
+}
+
+###
+
+# Probar PUT /api/vote/:id con un `count` no entero (debería devolver 400)
+PUT http://localhost:8000/api/vote/1
+Content-Type: application/json
+
+{
+    "rate": 4.5,
+    "count": 10.5
+}
+
