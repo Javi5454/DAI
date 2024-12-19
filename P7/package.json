@@ -9,7 +9,7 @@
     "seed": "node seed.js",
     "consultasP1": "node P1/Consultas.js",
     "descargarImagenesBD": "node P1/descargaImagenesBD.js",
-    "tienda": "node --watch tienda.js",
+    "tienda": "node tienda.js",
     "hashPasswords": "node hashPasswords.js"
   },
   "dependencies": {

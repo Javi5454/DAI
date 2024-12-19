@@ -9,7 +9,7 @@ ENV JWT_SECRET="EsTa MisMa:i8775tyjk,"
 ENV SECRET_KEY="clavesecretaDAI"
 # En linux
 ENV DB_HOST=mongo
-ENV PORT=80
+ENV PORT=8000
 ENV HOST=localhost
 
 COPY  package*.json /app
@@ -18,8 +18,6 @@ RUN npm ci --only=production && npm cache clean --force
 
 COPY . /app
 
-RUN chmod +x ./entry-point_tienda.sh
-
-CMD ./entry-point_tienda.sh
+CMD npm run tienda
 
 EXPOSE 8000

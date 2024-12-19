@@ -5,3 +5,6 @@ node_modules
 logs
 Dockerfile
 docker-compose.yml
+tests
+CaddyFile
+docker-compose-prod.yml

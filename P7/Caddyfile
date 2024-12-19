@@ -1,4 +1,4 @@
-:80 {
+:8000 {
     # Redirigir /public a /public/ y /dist a /dist/
 
     redir /public /public/
@@ -18,7 +18,7 @@
 
     # Proxy inverso para todas las demás peticiones
     handle {
-        reverse_proxy tienda:80
+        reverse_proxy tienda:8000
     }
 
     handle_errors {
